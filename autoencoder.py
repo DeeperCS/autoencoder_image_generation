@@ -32,7 +32,6 @@ img_transform = transforms.Compose([
 dataset = MNIST('./data', transform=img_transform, download=True)
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-
 class autoencoder(nn.Module):
     def __init__(self):
         super(autoencoder, self).__init__()
@@ -83,7 +82,6 @@ class DecoderPart(nn.Module):
         return x
       
 # Train autoencoder
-'''  '''
 model = autoencoder().cuda()
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(
@@ -111,12 +109,10 @@ for epoch in range(num_epochs):
 
 torch.save(model.state_dict(), './autoencoder.pth')
 
-
 # Initialize decoder
 print('Initializing decoder...')
 model_decoder = DecoderPart().cuda()
 model_decoder.load_state_dict(torch.load('./autoencoder.pth'))
-
 
 # Generate images by tuning two dimensions
 print('Generating...')
@@ -132,8 +128,6 @@ for idx_i, i in enumerate(np.linspace(lower_bound,upper_bound,num_x)):
     out_gen = model_decoder(Variable(torch.tensor([[i, j]])).cuda())
 
     im_gen = out_gen.detach().cpu().numpy().reshape(28,28)
-   
-    
     generated_images[idx_i*28:(idx_i+1)*28, idx_j*28:(idx_j+1)*28] = im_gen
     
 # normalize and save  
@@ -145,6 +139,5 @@ im.save("generated_images.png")
 # import matplotlib.pyplot as plt
 # im = Image.open('generated_images.png')
 # plt.imshow(im)
-
 print("Saved to <generated_images.png>")
 print("Finished")
