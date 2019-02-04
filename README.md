@@ -3,7 +3,7 @@
 A simple autoencoder uses fully connected network as encoder and decoder.
 
 
-The encoder output is show as follows.
+The encoder output is shown as follows.
 
 
 ![Generated images](generated_images.png)
